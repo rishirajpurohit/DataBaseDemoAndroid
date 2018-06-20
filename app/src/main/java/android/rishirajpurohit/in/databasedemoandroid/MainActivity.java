@@ -1,10 +1,12 @@
 package android.rishirajpurohit.in.databasedemoandroid;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,5 +37,13 @@ public class MainActivity extends AppCompatActivity {
                 manager.addTaskToDB(task);
             }
         });
+
+        (findViewById(R.id.btn_viewall)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, TaskListActivity.class));
+            }
+        });
+
     }
 }

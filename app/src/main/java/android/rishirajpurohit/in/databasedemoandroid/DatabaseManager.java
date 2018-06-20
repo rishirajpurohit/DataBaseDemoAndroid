@@ -2,8 +2,11 @@ package android.rishirajpurohit.in.databasedemoandroid;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
 
 /**
  * Created by rishi on 19-06-2018.
@@ -46,6 +49,27 @@ public class DatabaseManager extends SQLiteOpenHelper {
         cv.put(Task.COLUMN_NAME_SUBTITLE,task.getSubtitle());
 
         database.insert(Task.TABLE_NAME,null,cv);
+    }
+
+
+    public ArrayList<Task> getTasksFromDB(){
+        ArrayList<Task> taskArrayList = new ArrayList<>();
+
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+
+        Cursor cursor = sqLiteDatabase.query(Task.TABLE_NAME,new String[]{Task._ID,Task.COLUMN_NAME_TITLE,Task.COLUMN_NAME_SUBTITLE},null,null,null,null,null);
+
+        if(cursor != null && cursor.getCount() > 0){
+            cursor.moveToFirst();
+            do{
+
+                taskArrayList.add(new Task(cursor.getString(cursor.getColumnIndex(Task.COLUMN_NAME_TITLE)),cursor.getString(cursor.getColumnIndex(Task.COLUMN_NAME_SUBTITLE)),cursor.getString(cursor.getColumnIndex(Task._ID))));
+
+
+            }while (cursor.moveToNext());
+        }
+
+        return taskArrayList;
     }
 }
 
