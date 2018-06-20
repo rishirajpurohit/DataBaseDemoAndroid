@@ -11,8 +11,9 @@ public class TaskDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_detail);
 
-        Bundle data = getIntent().getExtras();
-        Task task = (Task) data.getParcelable("task");
+//        Bundle data = getIntent().getExtras();
+        Task task = (Task) getIntent().getParcelableExtra("task");
+//        Task task = (Task) data.getParcelable("task");
 
         Toast.makeText(this, "Title : "+task.getTitle(), Toast.LENGTH_SHORT).show();
 
