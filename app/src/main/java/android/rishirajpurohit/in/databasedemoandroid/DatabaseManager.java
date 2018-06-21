@@ -54,22 +54,29 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public ArrayList<Task> getTasksFromDB(){
         ArrayList<Task> taskArrayList = new ArrayList<>();
-
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-
         Cursor cursor = sqLiteDatabase.query(Task.TABLE_NAME,new String[]{Task._ID,Task.COLUMN_NAME_TITLE,Task.COLUMN_NAME_SUBTITLE},null,null,null,null,null);
 
         if(cursor != null && cursor.getCount() > 0){
             cursor.moveToFirst();
             do{
-
                 taskArrayList.add(new Task(cursor.getString(cursor.getColumnIndex(Task.COLUMN_NAME_TITLE)),cursor.getString(cursor.getColumnIndex(Task.COLUMN_NAME_SUBTITLE)),cursor.getString(cursor.getColumnIndex(Task._ID))));
-
-
             }while (cursor.moveToNext());
         }
-
         return taskArrayList;
+    }
+
+    public int editTaskInDB(Task task){
+
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+//        cv.put(Task._ID , task.get_id());
+        cv.put(Task.COLUMN_NAME_TITLE , task.getTitle());
+        cv.put(Task.COLUMN_NAME_SUBTITLE , task.getSubtitle());
+
+        int response = sqLiteDatabase.update(Task.TABLE_NAME,cv,Task._ID + " = ?",new String[]{task.get_id()});
+        return response;
     }
 }
 

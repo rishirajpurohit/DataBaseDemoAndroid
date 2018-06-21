@@ -36,14 +36,11 @@ public class TaskListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                Task t = taskArrayList.get(i);
-                Toast.makeText(TaskListActivity.this, "You clicked : " + t.getTitle(), Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(TaskListActivity.this,TaskDetailActivity.class);
-
-                intent.putExtra("task",t);
-
-                startActivity(intent);
-                finish();
+               Toast.makeText(TaskListActivity.this, "You clicked : " + t.getTitle(), Toast.LENGTH_SHORT).show();
+               Intent intent = new Intent(TaskListActivity.this,TaskDetailActivity.class);
+               intent.putExtra("task",t);
+               startActivity(intent);
+               finish();
             }
         });
 
